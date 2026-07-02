@@ -11,6 +11,7 @@ import { filter, map, startWith } from 'rxjs';
 import { AuthService } from '../features/auth/services/auth.service';
 import { MatCardTitle } from '@angular/material/card';
 
+
 /**
  * Shell de las pantallas privadas: sidebar + toolbar + breadcrumb, con
  * <router-outlet> adentro para las rutas hijas (ver app.routes.ts). El menú
@@ -30,7 +31,7 @@ import { MatCardTitle } from '@angular/material/card';
     MatSidenavModule,
     MatToolbarModule,
     MatCardTitle
-  ],
+],
   templateUrl: './layout.component.html',
 
 })

@@ -213,7 +213,7 @@ router.patch('/:id/estado', authRequired, soloStaff, pagoCtrl.cambiarEstado);
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
  */
-router.post('/mp/preferencia', authRequired, soloStaff, pagoCtrl.crearPreferencia);
+router.post('/mp/preferencia', authRequired, requireRole("CLIENTE"), pagoCtrl.crearPreferencia);
 
 /**
  * @openapi
