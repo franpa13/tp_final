@@ -14,6 +14,7 @@ import { publicGuard } from './core/guards/public.guard';
 import { roleGuard } from './core/guards/role.guard';
 import { Pago } from './features/pago/pago';
 import { Profile } from './features/profile/profile';
+import { ProductosComponent } from './features/productos/productos.component';
 
 // Angular recorre este array de arriba a abajo y usa la PRIMERA ruta que coincida con la URL.
 // Por eso el orden importa: las rutas mas especificas van primero, el wildcard '**' siempre al final.
@@ -95,6 +96,12 @@ export const routes: Routes = [
                 path: 'profile',
                 component: Profile,
                 canActivate: [roleGuard(['ADMIN', 'SUPERADMIN' , "CLIENTE"])],
+            },
+            {
+                // Ejemplo de CRUD simple (ver producto.routes.js en el backend):
+                // sin restricción de rol, cualquier usuario logueado puede entrar.
+                path: 'productos',
+                component: ProductosComponent,
             },
         ],
     },

@@ -1,9 +1,12 @@
 const sequelize = require('../config/database');
-const User    = require('./user.model');
-const Canchas = require('./canchas.model');
-const Reserva = require('./reserva.model');
-const Horario = require('./horario.model');
-const Pago    = require('./pago.model');
+const User     = require('./user.model');
+const Canchas  = require('./canchas.model');
+const Reserva  = require('./reserva.model');
+const Horario  = require('./horario.model');
+const Pago     = require('./pago.model');
+// Producto es un modelo de EJEMPLO, sin relaciones con el resto (ver
+// producto.model.js) — no necesita ninguna línea en la sección de abajo.
+const Producto = require('./producto.model');
 
 // ─── RELACIONES ───────────────────────────────────────────────────────────────
 //
@@ -68,6 +71,7 @@ const db = {
   Reserva,
   Horario,
   Pago,
+  Producto,
 };
 
 module.exports = db;

@@ -42,5 +42,8 @@ router.use('/reservas', require('./reserva.routes'));
 router.use('/horarios', require('./horario.routes'));
 router.use('/pagos',    require('./pago.routes'));
 router.use('/estadisticas', require('./estadisticas.routes'));
+// Productos: CRUD de EJEMPLO (ver producto.routes.js), plantilla para clonar
+// cuando haya que armar un modelo nuevo desde cero.
+router.use('/productos', require('./producto.routes'));
 
 module.exports = router;

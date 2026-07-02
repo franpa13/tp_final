@@ -63,7 +63,8 @@ export class MainLayoutComponent {
     { label: 'Reservas', path: '/reservas', icon: 'event_available', roles: ['ADMIN', 'SUPERADMIN'] },
     { label: 'Mis reservas', path: '/mis-reservas', icon: 'event_available', roles: ['CLIENTE'] },
     { label: 'Pagos', path: '/pagos', icon: 'payments', roles: ['ADMIN', 'SUPERADMIN'] },
-  
+    { label: 'Productos', path: '/productos', icon: 'inventory_2', roles: null },
+
   ].filter((item) => !item.roles || item.roles.includes(this.rolUsuario!));
 
   // Breadcrumb derivado de la URL actual.

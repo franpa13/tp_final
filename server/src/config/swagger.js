@@ -34,6 +34,7 @@ const definition = {
     { name: 'Reservas', description: 'Gestión de turnos reservados por clientes' },
     { name: 'Pagos', description: 'Pagos de reservas, incluida integración con MercadoPago. Todos los endpoints (salvo el webhook) requieren rol ADMIN o SUPERADMIN.' },
     { name: 'Estadísticas', description: 'Datos agregados para los gráficos del dashboard. Requiere rol ADMIN o SUPERADMIN.' },
+    { name: 'Productos', description: 'CRUD de EJEMPLO (sin paginado ni autenticación) — plantilla de referencia para crear un modelo nuevo.' },
   ],
   components: {
     securitySchemes: {
@@ -222,6 +223,31 @@ const definition = {
         required: ['estado'],
         properties: {
           estado: { type: 'string', example: 'confirmada' },
+        },
+      },
+
+      // Producto: modelo de EJEMPLO (ver producto.model.js / producto.controller.js).
+      Producto: {
+        type: 'object',
+        properties: {
+          id: { type: 'string', format: 'uuid' },
+          nombre: { type: 'string', example: 'Pelota N5' },
+          descripcion: { type: 'string', nullable: true, example: 'Pelota de fútbol reglamentaria' },
+          precio: { type: 'string', example: '9500.00', description: 'Decimal serializado como string' },
+          stock: { type: 'integer', example: 20 },
+          estado: { type: 'boolean', description: 'false = producto desactivado (soft delete)', example: true },
+          createdAt: { type: 'string', format: 'date-time' },
+          updatedAt: { type: 'string', format: 'date-time' },
+        },
+      },
+      ProductoBody: {
+        type: 'object',
+        required: ['nombre', 'precio'],
+        properties: {
+          nombre: { type: 'string', example: 'Pelota N5' },
+          descripcion: { type: 'string', example: 'Pelota de fútbol reglamentaria' },
+          precio: { type: 'number', example: 9500 },
+          stock: { type: 'integer', example: 20 },
         },
       },
 
