@@ -1,0 +1,90 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Canchas</mat-card-title>
+        <mat-card-subtitle>Gestion de canchas, precios y disponibilidad.</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-actions class="px-4 flex items-center">
+      <mat-form-field appearance="outline" class="w-48">
+        <mat-label>Estado</mat-label>
+        <mat-select [value]="estadoFiltro()" (selectionChange)="filtrarPorEstado($event.value)">
+          @for (estado of estados; track estado) {
+          <mat-option [value]="estado">{{ estado }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      @if (estadoFiltro()) {
+      <button (click)="deleteFilters()" class="ml-4 text-red-800! cursor-pointer shadow-2xl">
+        <mat-icon>close</mat-icon>
+      </button>
+      }
+    </mat-card-actions>
+
+    <mat-card-content>
+        <!-- overflow-x-auto permite scroll horizontal en mobile cuando la tabla no entra -->
+        <div class="overflow-x-auto">
+            @if (pagos().length == 0) {
+            <p class="p-2 bg-gray-200 flex justify-center gap-2 items-center">No se encontraron pagos
+              <mat-icon>search_off</mat-icon>
+            </p>
+            }@else{
+            <table mat-table [dataSource]="pagos()" class="w-full min-w-150">
+
+                <ng-container matColumnDef="monto">
+                    <th mat-header-cell *matHeaderCellDef>Monto</th>
+                    <td mat-cell *matCellDef="let pago">{{ pago.monto }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="metodoPago">
+                    <th mat-header-cell *matHeaderCellDef>Metodo de Pago</th>
+                    <td mat-cell *matCellDef="let pago">{{ pago.metodoPago }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="cancha">
+                    <th mat-header-cell *matHeaderCellDef>Nro.</th>
+                    <td mat-cell *matCellDef="let pago">{{ pago.reserva.cancha.nombreCancha }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="acciones">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let pago">
+                        <button mat-icon-button (click)="abrirDetailPago(pago)">
+                            <mat-icon>remove_red_eye</mat-icon>
+                        </button>
+
+                    </td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            </table>
+            }
+        </div>
+
+        <div class="flex items-center justify-between mt-4 px-1">
+          <mat-form-field appearance="outline" class="w-36">
+            <mat-label>Por página</mat-label>
+            <mat-select [value]="pageSize()" (selectionChange)="cambiarTamanio($event.value)">
+              @for (size of sizePages; track size) {
+                <mat-option [value]="size">{{ size }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+          <div class="flex items-center gap-2">
+            <span class="text-sm text-slate-500">
+              Página {{ page() }} de {{ totalPages() }} ({{ total() }} pagos)
+            </span>
+            <button mat-icon-button [disabled]="page() <= 1" (click)="paginaAnterior()">
+              <mat-icon>chevron_left</mat-icon>
+            </button>
+            <button mat-icon-button [disabled]="page() >= totalPages()" (click)="paginaSiguiente()">
+              <mat-icon>chevron_right</mat-icon>
+            </button>
+          </div>
+        </div>
+
+    </mat-card-content>
+
+</mat-card>

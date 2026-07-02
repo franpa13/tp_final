@@ -1,0 +1,14 @@
+<div class="flex items-center justify-between pr-2">
+  <h2 mat-dialog-title class="!mb-0">{{ data.title }}</h2>
+  <button mat-icon-button (click)="close()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<mat-dialog-content>
+  <!--
+    ngComponentOutlet renderiza el componente dinamicamente.
+    ngComponentOutletInputs pasa los @Input() al componente interno.
+  -->
+  <ng-container *ngComponentOutlet="data.component; inputs: data.inputs" />
+</mat-dialog-content>

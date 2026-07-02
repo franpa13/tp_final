@@ -1,0 +1,36 @@
+<section class="grid grid-cols-1 md:grid-cols-2">
+    <div class="flex items-center gap-2 ">
+        <span class="text-gray-400">Monto : </span>
+        <span>{{pago?.monto}}</span>
+    </div>
+    <div class="flex items-center gap-2">
+        <span class="text-gray-400">Cancha : </span>
+        <span>{{pago?.reserva?.cancha?.nombreCancha}}</span>
+    </div>
+    <div class="flex items-center gap-2 ">
+        <span class="text-gray-400">Metodo de pago : </span>
+        <span>{{pago?.metodoPago}}</span>
+    </div>
+    <div class="flex items-center gap-2">
+        <span class="text-gray-400">Estado : </span>
+        <span>{{pago?.estado}}</span>
+    </div>
+
+    <div class="flex items-center gap-2">
+        <span class="text-gray-400">Fecha Reserva: </span>
+        <span>{{pago?.reserva?.fecha}}</span>
+    </div>
+    <div class="flex items-center gap-2">
+        <span class="text-gray-400">Hora Inicio: </span>
+        <span>{{pago?.reserva?.horaInicio}}</span>
+    </div>
+
+    <div class="flex items-center gap-2">
+        <span class="text-gray-400">Hora Fin: </span>
+        <span>{{pago?.reserva?.horaFin}}</span>
+    </div>
+    <div class="flex items-center gap-2">
+        <span class="text-gray-400">Cliente: </span>
+        <span>{{pago?.reserva?.nombreCliente}}</span>
+    </div>
+</section>

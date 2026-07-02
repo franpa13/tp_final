@@ -1,0 +1,58 @@
+<form [formGroup]="form" (ngSubmit)="submit()" class="flex flex-col gap-4 pt-2">
+
+  <mat-form-field appearance="outline">
+    <mat-label>Nombre</mat-label>
+    <input matInput formControlName="name" placeholder="Juan Pérez" />
+    @if (form.get('name')?.hasError('required')) {
+      <mat-error>El nombre es requerido</mat-error>
+    }
+  </mat-form-field>
+
+  @if (!modoEdicion) {
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" type="email" placeholder="admin@ejemplo.com" />
+      @if (form.get('email')?.hasError('required')) {
+        <mat-error>El email es requerido</mat-error>
+      }
+      @if (form.get('email')?.hasError('email')) {
+        <mat-error>Email inválido</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Contraseña</mat-label>
+      <input matInput formControlName="password" type="password" />
+      @if (form.get('password')?.hasError('required')) {
+        <mat-error>La contraseña es requerida</mat-error>
+      }
+      @if (form.get('password')?.hasError('minlength')) {
+        <mat-error>Mínimo 6 caracteres</mat-error>
+      }
+    </mat-form-field>
+  }
+
+  @if (modoEdicion) {
+    <mat-form-field appearance="outline">
+      <mat-label>Rol</mat-label>
+      <mat-select formControlName="type">
+        @for (rol of roles; track rol) {
+          <mat-option [value]="rol">{{ rol }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  } @else {
+    <p class="text-sm text-slate-500 flex items-center gap-1">
+      <mat-icon style="font-size: 18px; width: 18px; height: 18px;">info</mat-icon>
+      El usuario se crea con rol Cliente. Para cambiarlo, editalo después.
+    </p>
+  }
+
+  <div class="flex justify-end gap-2 mt-2">
+    <button mat-button type="button" (click)="dialogRef.close(false)">Cancelar</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+      {{ modoEdicion ? 'Guardar cambios' : 'Crear usuario' }}
+    </button>
+  </div>
+
+</form>

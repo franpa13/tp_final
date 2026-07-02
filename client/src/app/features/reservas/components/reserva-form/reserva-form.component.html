@@ -1,0 +1,65 @@
+<form [formGroup]="form" (ngSubmit)="submit()" class="flex flex-col gap-4 pt-2">
+
+  <mat-form-field appearance="outline">
+    <mat-label>Cancha</mat-label>
+    <mat-select formControlName="canchaId">
+      @for (cancha of canchas(); track cancha.id) {
+        <mat-option [value]="cancha.id">
+          {{ cancha.nombreCancha }} — {{ cancha.type }}
+        </mat-option>
+      }
+    </mat-select>
+    @if (form.get('canchaId')?.hasError('required')) {
+      <mat-error>Seleccioná una cancha</mat-error>
+    }
+  </mat-form-field>
+
+  @if (!modoCliente) {
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre del cliente</mat-label>
+      <input matInput formControlName="nombreCliente" placeholder="Juan García" />
+      @if (form.get('nombreCliente')?.hasError('required')) {
+        <mat-error>El nombre es requerido</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Teléfono del cliente</mat-label>
+      <input matInput formControlName="telefonoCliente" placeholder="11 1234-5678" />
+    </mat-form-field>
+  }
+
+  <mat-form-field appearance="outline">
+    <mat-label>Fecha</mat-label>
+    <input matInput formControlName="fecha" type="date" />
+    @if (form.get('fecha')?.hasError('required')) {
+      <mat-error>La fecha es requerida</mat-error>
+    }
+  </mat-form-field>
+
+  <div class="grid grid-cols-2 gap-4">
+    <mat-form-field appearance="outline">
+      <mat-label>Hora inicio</mat-label>
+      <input matInput formControlName="horaInicio" type="time" />
+      @if (form.get('horaInicio')?.hasError('required')) {
+        <mat-error>Requerido</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Hora fin</mat-label>
+      <input matInput formControlName="horaFin" type="time" />
+      @if (form.get('horaFin')?.hasError('required')) {
+        <mat-error>Requerido</mat-error>
+      }
+    </mat-form-field>
+  </div>
+
+  <div class="flex justify-end gap-2 mt-2">
+    <button mat-button type="button" (click)="dialogRef.close(false)">Cancelar</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+      Crear reserva
+    </button>
+  </div>
+
+</form>

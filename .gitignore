@@ -1,0 +1,14 @@
+# Cada subproyecto tiene su propio .gitignore (client/.gitignore, server/.gitignore)
+# que ya cubre node_modules, dist, .env, etc. Este archivo es solo para la raíz.
+
+# IDEs y editores
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Sistema
+.DS_Store
+Thumbs.db

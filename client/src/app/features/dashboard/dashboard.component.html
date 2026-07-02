@@ -1,0 +1,66 @@
+<section class="page">
+  <h1>Inicio</h1>
+  <p>Resumen general del sistema de alquiler de canchas.</p>
+
+  <div class="grid">
+    @for (item of cards; track item.path) {
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>{{ item.title }}</mat-card-title>
+          <mat-card-subtitle>{{ item.subtitle }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-actions>
+          <a mat-button [routerLink]="item.path">Ver modulo</a>
+        </mat-card-actions>
+      </mat-card>
+    }
+  </div>
+
+  @if (esStaff) {
+    <h2>Estadísticas</h2>
+    <!--
+      `baseChart` (de ng2-charts) convierte un <canvas> normal en un gráfico de
+      Chart.js. `type` fija qué gráfico dibuja, `[data]` son los valores
+      (los signals de arriba) y `[options]` la config (acá solo el tamaño).
+      Como `[data]` es un signal de Angular, cada `.set(...)` en el componente
+      redibuja el gráfico solo, sin código extra.
+    -->
+    <div class="charts-grid">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Reservas por estado</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="chart-content">
+          <canvas baseChart [data]="reservasPorEstadoData()" [options]="pieOptions" type="pie"></canvas>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Ingresos por mes</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="chart-content">
+          <canvas baseChart [data]="ingresosPorMesData()" [options]="lineOptions" type="line"></canvas>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Canchas más reservadas</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="chart-content">
+          <canvas baseChart [data]="canchasMasReservadasData()" [options]="barOptions" type="bar"></canvas>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Métodos de pago</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="chart-content">
+          <canvas baseChart [data]="metodosPagoData()" [options]="pieOptions" type="pie"></canvas>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  }
+</section>

@@ -1,0 +1,51 @@
+<form [formGroup]="form" (ngSubmit)="submit()" class="flex flex-col gap-4 pt-2">
+
+  <mat-form-field appearance="outline">
+    <mat-label>Cancha</mat-label>
+    <mat-select formControlName="canchaId">
+      @for (cancha of canchas(); track cancha.id) {
+        <mat-option [value]="cancha.id">{{ cancha.nombreCancha }}</mat-option>
+      }
+    </mat-select>
+    @if (form.get('canchaId')?.hasError('required')) {
+      <mat-error>Seleccioná una cancha</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Día de la semana</mat-label>
+    <mat-select formControlName="diaSemana">
+      @for (dia of diasSemana; track dia.value) {
+        <mat-option [value]="dia.value">{{ dia.label }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <div class="grid grid-cols-2 gap-4">
+    <mat-form-field appearance="outline">
+      <mat-label>Hora apertura</mat-label>
+      <input matInput formControlName="horaApertura" type="time" />
+      @if (form.get('horaApertura')?.hasError('required')) {
+        <mat-error>Requerido</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Hora cierre</mat-label>
+      <input matInput formControlName="horaCierre" type="time" />
+      @if (form.get('horaCierre')?.hasError('required')) {
+        <mat-error>Requerido</mat-error>
+      }
+    </mat-form-field>
+  </div>
+
+  <mat-checkbox formControlName="activo">Día operativo</mat-checkbox>
+
+  <div class="flex justify-end gap-2 mt-2">
+    <button mat-button type="button" (click)="dialogRef.close(false)">Cancelar</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+      {{ modoEdicion ? 'Guardar cambios' : 'Guardar horario' }}
+    </button>
+  </div>
+
+</form>

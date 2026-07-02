@@ -1,0 +1,71 @@
+<section class="w-full h-dvh flex justify-center items-center px-4">
+  <mat-card class="w-full sm:w-96">
+    <div class="flex items-center flex-col text-green-500 gap-1 pt-2">
+      <mat-icon class="text-4xl! w-10! h-10!">sports_soccer</mat-icon>
+      <mat-card-title class="font-medium!">CanchApp</mat-card-title>
+    </div>
+
+    <mat-card-header class=" mb-4 flex items-start! gap-2">
+      <mat-card-subtitle>Registrarse</mat-card-subtitle>
+      
+      <mat-icon>supervisor_account</mat-icon>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="submit()" class="flex flex-col gap-3.5 mb-3">
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre</mat-label>
+          <input matInput type="text" formControlName="name" />
+          @if (form.controls.name.invalid && form.controls.name.touched) {
+            <mat-error>{{ getNameError() }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="email" />
+          @if (form.controls.email.invalid && form.controls.email.touched) {
+            <mat-error>{{ getEmailError() }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Teléfono</mat-label>
+          <input matInput type="tel" formControlName="telefono" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" />
+          @if (form.controls.password.invalid && form.controls.password.touched) {
+            <mat-error>{{ getPasswordError() }}</mat-error>
+          }
+        </mat-form-field>
+
+        @if (error()) {
+          <p class="text-red-400 flex items-center text-sm gap-1">
+            <mat-icon style="font-size: 16px; width: 16px; height: 16px;">error</mat-icon>
+            {{ error() }}
+          </p>
+        }
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="loading()">
+          <mat-icon>send</mat-icon>
+          Registrarse
+        </button>
+      </form>
+
+      <button matButton="text" (click)="goToLogin()">¿Ya tenés cuenta? Ingresá al sistema</button>
+
+      <div class="flex items-center gap-2 my-3">
+        <span class="flex-1 border-t border-slate-200"></span>
+        <span class="text-xs text-slate-400">o</span>
+        <span class="flex-1 border-t border-slate-200"></span>
+      </div>
+
+      <div class="flex justify-center">
+        <app-google-signin-button (credential)="onGoogleCredential($event)" />
+      </div>
+    </mat-card-content>
+  </mat-card>
+</section>

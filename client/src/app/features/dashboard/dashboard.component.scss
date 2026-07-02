@@ -1,0 +1,32 @@
+.page {
+  display: grid;
+  gap: 16px;
+}
+
+h1,
+p {
+  margin: 0;
+}
+
+h2 {
+  margin: 8px 0 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+// Alto fijo + position: relative es lo que necesita Chart.js (con
+// maintainAspectRatio: false) para llenar el contenedor sin crecer sin límite.
+.chart-content {
+  height: 280px;
+  position: relative;
+}

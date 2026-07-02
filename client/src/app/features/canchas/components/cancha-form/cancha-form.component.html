@@ -1,0 +1,44 @@
+<form [formGroup]="form" (ngSubmit)="submit()" class="flex flex-col gap-4 pt-2">
+
+  <mat-form-field appearance="outline">
+    <mat-label>Nombre</mat-label>
+    <input matInput type="text" formControlName="nombreCancha" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Numero Cancha</mat-label>
+    <input matInput type="number" formControlName="numberCancha" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Tipo de Cancha</mat-label>
+    <mat-select formControlName="type">
+      @for (t of tiposCancha; track t) {
+        <mat-option [value]="t">{{ t }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Hora Apertura</mat-label>
+    <input matInput type="time" formControlName="horaApertura" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Hora Cierre</mat-label>
+    <input matInput type="time" formControlName="horaCierre" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Precio</mat-label>
+    <span matTextPrefix>$&nbsp;</span>
+    <input matInput type="number" formControlName="precio" />
+  </mat-form-field>
+
+  <div class="flex justify-end">
+    <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">
+      {{ modoEdicion ? 'Guardar cambios' : 'Crear cancha' }}
+    </button>
+  </div>
+
+</form>

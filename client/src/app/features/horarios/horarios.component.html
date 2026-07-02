@@ -1,0 +1,99 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Horarios</mat-card-title>
+    <mat-card-subtitle>Disponibilidad operativa por día para cada cancha.</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-actions class="px-4 flex items-center gap-4 flex-wrap">
+    <!-- Filtro por cancha — el backend requiere canchaId para traer horarios -->
+    <mat-form-field appearance="outline" class="w-64">
+      <mat-label>Cancha</mat-label>
+      <mat-select [(ngModel)]="canchaSeleccionada" (ngModelChange)="cargarHorarios()">
+        @for (cancha of canchas(); track cancha.id) {
+          <mat-option [value]="cancha.id">{{ cancha.nombreCancha }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <button (click)="abrirFormularioCrear()" mat-raised-button color="primary" type="button" [disabled]="!canchaSeleccionada">
+      <mat-icon>schedule</mat-icon>
+      Nuevo horario
+    </button>
+  </mat-card-actions>
+
+  <mat-card-content>
+    <div class="overflow-x-auto">
+      <table mat-table [dataSource]="horarios()" class="w-full min-w-150">
+
+        <ng-container matColumnDef="diaSemana">
+          <th mat-header-cell *matHeaderCellDef>Día</th>
+          <td mat-cell *matCellDef="let horario">{{ diasSemana[horario.diaSemana] }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="horaApertura">
+          <th mat-header-cell *matHeaderCellDef>Apertura</th>
+          <td mat-cell *matCellDef="let horario">{{ horario.horaApertura.slice(0, 5) }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="horaCierre">
+          <th mat-header-cell *matHeaderCellDef>Cierre</th>
+          <td mat-cell *matCellDef="let horario">{{ horario.horaCierre.slice(0, 5) }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="activo">
+          <th mat-header-cell *matHeaderCellDef>Estado</th>
+          <td mat-cell *matCellDef="let horario">
+            @if (horario.activo) {
+              <span class="text-green-600 font-medium">Activo</span>
+            } @else {
+              <span class="text-slate-400">Inactivo</span>
+            }
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let horario">
+            <button mat-icon-button (click)="abrirFormularioEditar(horario)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="eliminarHorario(horario.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      </table>
+
+      @if (horarios().length === 0 && canchaSeleccionada) {
+        <p class="text-center text-slate-400 py-8">No hay horarios cargados para esta cancha.</p>
+      }
+    </div>
+
+    <div class="flex items-center justify-between mt-4 px-1">
+      <mat-form-field appearance="outline" class="w-36">
+        <mat-label>Por página</mat-label>
+        <mat-select [value]="pageSize()" (selectionChange)="cambiarTamanio($event.value)">
+          @for (size of sizePages; track size) {
+            <mat-option [value]="size">{{ size }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <div class="flex items-center gap-2">
+        <span class="text-sm text-slate-500">
+          Página {{ page() }} de {{ totalPages() }} ({{ total() }} horarios)
+        </span>
+        <button mat-icon-button [disabled]="page() <= 1" (click)="paginaAnterior()">
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+        <button mat-icon-button [disabled]="page() >= totalPages()" (click)="paginaSiguiente()">
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+      </div>
+    </div>
+
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,36 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Mi Perfil</mat-card-title>
+        <mat-card-subtitle>Hecha un vistazo a tu perfil.</mat-card-subtitle>
+    </mat-card-header>
+</mat-card>
+
+<section class="grid grid-cols-1 md:grid-cols-3 p-2 rounded border border-gray-300 gap-20 bg-green-100 mt-4 ">
+    <div class="bg-green-700 p-2 text-white font-normal rounded text-xl shadow-2xl">
+        <span class="flex items-center gap-2"> <mat-icon>face</mat-icon> Nombre : {{userProfile()?.name}}</span>
+    </div>
+    <div class="bg-green-700 p-2 text-white font-normal rounded text-xl shadow-2xl">
+        <span class="flex items-center gap-2"> <mat-icon>email</mat-icon> Email :
+            {{userProfile()?.email}}</span>
+
+    </div>
+    <div class="bg-green-700 p-2 text-white font-normal rounded text-xl shadow-2xl">
+        <span class="flex items-center gap-2"> <mat-icon>phone_enabled</mat-icon> Telefono :
+            {{userProfile()?.telefono}}</span>
+    </div>
+    <div class="bg-green-700 p-2 text-white font-normal rounded text-xl shadow-2xl">
+        <span class="flex items-center gap-2"> <mat-icon>admin_panel_settings</mat-icon> ROL :
+            {{userProfile()?.type}}</span>
+    </div>
+    <div class="bg-green-700 p-2 text-white font-normal rounded text-xl shadow-2xl">
+        <span class="flex items-center gap-2"> <mat-icon>settings_b_roll</mat-icon> Estado :
+            {{userProfile()?.estado}}</span>
+
+    </div>
+    <div class="bg-green-700 p-2 text-white font-normal rounded text-xl shadow-2xl">
+        <span class="flex items-center gap-2"> <mat-icon>fingerprint</mat-icon> Id :
+            {{userProfile()?.id}}</span>
+
+    </div>
+
+</section>
