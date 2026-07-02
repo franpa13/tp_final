@@ -13,6 +13,7 @@ import { ToastService } from '../../shared/services/toast.service';
 import { ReservaFormComponent } from '../reservas/components/reserva-form/reserva-form.component';
 import { Reserva } from '../reservas/interfaces/reserva.model';
 import { ReservasService } from '../reservas/services/reservas.service';
+import { ReservaPagoModalComponent } from './components/form';
 
 /**
  * Pantalla de reservas para un usuario CLIENTE: solo ve y gestiona las suyas.
@@ -85,12 +86,22 @@ export class MisReservasComponent implements OnInit {
     return reserva.estado === 'pendiente' || reserva.estado === 'confirmada';
   }
 
+
+
   abrirFormularioCrear(): void {
     this.dialog.open(DialogShellComponent, {
       width: '480px',
       data: { title: 'Nueva reserva', component: ReservaFormComponent, inputs: { modoCliente: true } },
     }).afterClosed().subscribe((guardado: boolean) => { if (guardado) this.cargarReservas(); });
   }
+
+    abrirFormularioPagar(reserva:Reserva): void {
+    this.dialog.open(DialogShellComponent, {
+      width: '480px',
+        data: { title: 'Pagar reserva', component: ReservaPagoModalComponent, inputs: { reserva } },
+    }).afterClosed().subscribe((guardado: boolean) => { if (guardado) this.cargarReservas(); });
+  }
+
 
   cancelarReserva(id: string): void {
     this.dialog.open(ConfirmDialogComponent, {

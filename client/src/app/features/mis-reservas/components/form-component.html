@@ -1,0 +1,33 @@
+<div class="flex flex-col gap-4 pt-2">
+
+    <!-- Info de la reserva -->
+    <div class="bg-slate-50 rounded-lg p-3 text-sm flex flex-col gap-1">
+        <div class="flex justify-between">
+            <span class="text-slate-500">Cliente</span>
+            <span class="font-medium">{{ reserva.nombreCliente }}</span>
+        </div>
+        <div class="flex justify-between">
+            <span class="text-slate-500">Cancha</span>
+            <span class="font-medium">{{ reserva.cancha?.nombreCancha ?? '—' }}</span>
+        </div>
+        <div class="flex justify-between">
+            <span class="text-slate-500">Fecha</span>
+            <span class="font-medium">{{ reserva.fecha }} · {{ reserva.horaInicio.slice(0,5) }}–{{
+                reserva.horaFin.slice(0,5) }}</span>
+        </div>
+        <div class="flex justify-between">
+            <span class="text-slate-500">Monto</span>
+            <span class="font-semibold">${{ reserva.cancha?.precio ?? '—' }}</span>
+        </div>
+    </div>
+
+    <!-- Opción 1: MercadoPago -->
+    <button mat-raised-button color="primary" [disabled]="cargandoMP()" (click)="pagarConMP()" class="w-full">
+        @if (cargandoMP()) {
+        <mat-spinner diameter="20" />
+        } @else {
+        <mat-icon>smartphone</mat-icon>
+        }
+        Pagar con MercadoPago
+    </button>
+</div>

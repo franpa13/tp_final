@@ -7,7 +7,7 @@ import { MatIcon } from "@angular/material/icon";
 
 @Component({
   selector: 'app-profile',
-  imports: [MatCard, MatCardHeader, MatCardSubtitle, MatCardTitle, MatCardContent, MatIcon],
+  imports: [MatCard, MatCardHeader, MatCardSubtitle, MatCardTitle, MatIcon],
   templateUrl: './profile.html',
   styleUrl: './profile.css',
 })

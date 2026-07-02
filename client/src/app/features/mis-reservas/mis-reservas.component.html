@@ -58,7 +58,14 @@
               <mat-icon>event_busy</mat-icon>
             </button>
             }
+            <button mat-icon-button color="succes" (click)="abrirFormularioPagar(reserva)">
+              <mat-icon>payment_arrow_down</mat-icon>
+            </button>
           </td>
+
+
+
+
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -73,7 +80,7 @@
         <mat-label>Por página</mat-label>
         <mat-select [value]="pageSize()" (selectionChange)="cambiarTamanio($event.value)">
           @for (size of sizePages; track size) {
-            <mat-option [value]="size">{{ size }}</mat-option>
+          <mat-option [value]="size">{{ size }}</mat-option>
           }
         </mat-select>
       </mat-form-field>
