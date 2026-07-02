@@ -2,7 +2,14 @@
 const crypto = require('crypto');
 const bcrypt = require('bcryptjs'); // Opcional: cámbialo por 'bcrypt' si prefieres
 
-/** @type {import('sequelize-cli').Migration} */
+/**
+ * Seed de Users. Se ejecuta primero (prefijo 01-) porque Reservas depende de
+ * usuarios existentes (creadoPor / clienteId). Incluye los 3 roles del sistema:
+ * SUPERADMIN (control total), ADMIN (gestión operativa) y CLIENTE (pide sus
+ * propias reservas — ver reserva.controller.js).
+ *
+ * @type {import('sequelize-cli').Migration}
+ */
 module.exports = {
   async up(queryInterface, Sequelize) {
     // Generamos un hash real para que todos compartan la misma contraseña de prueba
@@ -15,6 +22,7 @@ module.exports = {
         name: 'Administrador Principal',
         email: 'superadmin@sistema.com',
         password: hashedPassword,
+        telefono: '+54 388 400-0001',
         estado: true,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -25,6 +33,7 @@ module.exports = {
         name: 'Alejandro Mendoza',
         email: 'alejandro.m@sistema.com',
         password: hashedPassword,
+        telefono: '+54 388 400-0002',
         estado: true,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -35,6 +44,7 @@ module.exports = {
         name: 'Beatriz Silva',
         email: 'beatriz.s@sistema.com',
         password: hashedPassword,
+        telefono: '+54 388 400-0003',
         estado: true,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -45,6 +55,7 @@ module.exports = {
         name: 'Carlos Delgado',
         email: 'carlos.d@sistema.com',
         password: hashedPassword,
+        telefono: '+54 388 400-0004',
         estado: false, // Inactivo
         createdAt: new Date(),
         updatedAt: new Date()
@@ -55,6 +66,7 @@ module.exports = {
         name: 'Diana Rivas',
         email: 'diana.r@sistema.com',
         password: hashedPassword,
+        telefono: '+54 388 400-0005',
         estado: true,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -65,6 +77,7 @@ module.exports = {
         name: 'Eduardo Torres',
         email: 'eduardo.t@sistema.com',
         password: hashedPassword,
+        telefono: '+54 388 400-0006',
         estado: true,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -75,6 +88,7 @@ module.exports = {
         name: 'Fernanda Castro',
         email: 'fernanda.c@sistema.com',
         password: hashedPassword,
+        telefono: '+54 388 400-0007',
         estado: true,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -85,6 +99,7 @@ module.exports = {
         name: 'Gabriel Ortiz',
         email: 'gabriel.o@sistema.com',
         password: hashedPassword,
+        telefono: '+54 388 400-0008',
         estado: true,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -95,6 +110,7 @@ module.exports = {
         name: 'Helena Peña',
         email: 'helena.p@sistema.com',
         password: hashedPassword,
+        telefono: '+54 388 400-0009',
         estado: false, // Inactivo
         createdAt: new Date(),
         updatedAt: new Date()
@@ -105,6 +121,7 @@ module.exports = {
         name: 'Iván Morales',
         email: 'ivan.m@sistema.com',
         password: hashedPassword,
+        telefono: '+54 388 400-0010',
         estado: true,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -115,6 +132,7 @@ module.exports = {
         name: 'Julia Vargas',
         email: 'julia.v@sistema.com',
         password: hashedPassword,
+        telefono: '+54 388 400-0011',
         estado: true,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -125,6 +143,7 @@ module.exports = {
         name: 'Kevin Flores',
         email: 'kevin.f@sistema.com',
         password: hashedPassword,
+        telefono: '+54 388 400-0012',
         estado: true,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -135,6 +154,7 @@ module.exports = {
         name: 'Laura Méndez',
         email: 'laura.m@sistema.com',
         password: hashedPassword,
+        telefono: '+54 388 400-0013',
         estado: true,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -145,6 +165,7 @@ module.exports = {
         name: 'Manuel Ríos',
         email: 'manuel.r@sistema.com',
         password: hashedPassword,
+        telefono: '+54 388 400-0014',
         estado: true,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -155,6 +176,63 @@ module.exports = {
         name: 'Natalia Herrera',
         email: 'natalia.h@sistema.com',
         password: hashedPassword,
+        telefono: '+54 388 400-0015',
+        estado: true,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      // ── Clientes: se autorregistran y piden sus propias reservas ──────────
+      {
+        id: crypto.randomUUID(),
+        type: 'CLIENTE',
+        name: 'Martín Acosta',
+        email: 'martin.acosta@cliente.com',
+        password: hashedPassword,
+        telefono: '+54 388 500-1001',
+        estado: true,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        id: crypto.randomUUID(),
+        type: 'CLIENTE',
+        name: 'Sofía Gutiérrez',
+        email: 'sofia.gutierrez@cliente.com',
+        password: hashedPassword,
+        telefono: '+54 388 500-1002',
+        estado: true,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        id: crypto.randomUUID(),
+        type: 'CLIENTE',
+        name: 'Nicolás Fernández',
+        email: 'nicolas.fernandez@cliente.com',
+        password: hashedPassword,
+        telefono: '+54 388 500-1003',
+        estado: true,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        id: crypto.randomUUID(),
+        type: 'CLIENTE',
+        name: 'Camila Rojas',
+        email: 'camila.rojas@cliente.com',
+        password: hashedPassword,
+        telefono: '+54 388 500-1004',
+        estado: true,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        id: crypto.randomUUID(),
+        type: 'CLIENTE',
+        name: 'Tomás Benítez',
+        email: 'tomas.benitez@cliente.com',
+        password: hashedPassword,
+        telefono: '+54 388 500-1005',
         estado: true,
         createdAt: new Date(),
         updatedAt: new Date()
